@@ -17,6 +17,9 @@ export const styles = StyleSheet.create({
   valueTextContainer: {
     paddingRight: 40,
   },
+  linkText: {
+    color: '#007AFF',
+  },
   inputKey: {
     fontSize: 16,
     fontWeight: 500,

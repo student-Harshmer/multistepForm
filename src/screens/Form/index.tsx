@@ -1,4 +1,10 @@
-import { View, ScrollView, useWindowDimensions, Text, TouchableOpacity, Alert } from 'react-native'
+import {
+  View,
+  ScrollView,
+  useWindowDimensions,
+  Text,
+  TouchableOpacity
+} from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { styles } from './style'
@@ -9,11 +15,13 @@ import { PreferencesInfoparams } from '../../types/navigation'
 import EducationInfo from '../../components/EducationInfo'
 import Portfolio from '../../components/Portfolio'
 import Review from '../../components/Review'
+import { useNavigation } from '@react-navigation/native'
 
 const Form = () => {
   const { width } = useWindowDimensions();
   const isHorizontal = width > 600;
   const progressWidth = width - 80;
+  const navigation = useNavigation<any>();
   const methods = useForm<PreferencesInfoparams>({
     defaultValues: {
       fullName: '',
@@ -84,12 +92,20 @@ const Form = () => {
           )
         })}
       </View>
-      <View style={styles.header}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(
+            'Webscreen',
+            { url: 'https://github.com/' }
+          )
+        }
+        style={styles.header}
+      >
         <Image
           source={require('../../assets/images/Logo.png')}
           style={isHorizontal ? styles.horizontalLogo : styles.logoStyle}
         />
-      </View>
+      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.container}>
         <View
           style={[
@@ -124,7 +140,7 @@ const Form = () => {
         }
         {page === 4 &&
           <TouchableOpacity
-            onPress={handleSubmit(() => Alert.alert("Form submitted"))}
+            onPress={handleSubmit(() => navigation.navigate('AppStack', { screen: 'Home' }))}
             style={styles.submitButton}
           >
             <Text style={styles.buttonText}>Save</Text>
