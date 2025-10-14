@@ -96,7 +96,7 @@ const Form = () => {
         onPress={() =>
           navigation.navigate(
             'Webscreen',
-            { url: 'https://github.com/' }
+            { url: 'https://github.com/student-Harshmer/multistepForm' }
           )
         }
         style={styles.header}
