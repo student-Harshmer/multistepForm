@@ -19,6 +19,8 @@ export const styles = StyleSheet.create({
   },
   linkText: {
     color: '#007AFF',
+    textDecorationLine: 'underline',
+    textDecorationColor: '#007AFF',
   },
   inputKey: {
     fontSize: 16,
