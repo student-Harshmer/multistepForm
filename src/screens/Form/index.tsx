@@ -16,6 +16,7 @@ import EducationInfo from '../../components/EducationInfo'
 import Portfolio from '../../components/Portfolio'
 import Review from '../../components/Review'
 import { useNavigation } from '@react-navigation/native'
+import { useAuthStore } from '../../zustand/store/authStore'
 
 const Form = () => {
   const { width } = useWindowDimensions();
@@ -38,7 +39,8 @@ const Form = () => {
   });
   const [page, setPage] = useState(1);
   const [visitedPage, setVisitedPage] = useState(1);
-  const { handleSubmit } = methods;
+  const { handleSubmit, getValues } = methods;
+  const { setUser } = useAuthStore();
 
   const changeSection = async (isNextPressed: boolean, newPage?: number) => {
     if (isNextPressed) {
@@ -57,6 +59,11 @@ const Form = () => {
     } else {
       setPage(prev => prev - 1);
     }
+  };
+
+  const onSubmit = async () => {
+    const values = getValues();
+    await setUser(values);
   };
 
   return (
@@ -140,7 +147,7 @@ const Form = () => {
         }
         {page === 4 &&
           <TouchableOpacity
-            onPress={handleSubmit(() => navigation.navigate('AppStack', { screen: 'Home' }))}
+            onPress={handleSubmit(onSubmit)}
             style={styles.submitButton}
           >
             <Text style={styles.buttonText}>Save</Text>

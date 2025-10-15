@@ -8,6 +8,7 @@ interface userStore {
   error: string | null;
   fetchUser: () => Promise<void>;
   setUser: (userToSet: PreferencesInfoparams) => Promise<void>;
+  logoutUser: () => Promise<void>;
 }
 
 export const useAuthStore = create<userStore>((set) => ({
@@ -41,4 +42,15 @@ export const useAuthStore = create<userStore>((set) => ({
       set({ error: error.message, loading: false });
     }
   },
+
+  logoutUser: async () => {
+    set({ loading: true, error: null });
+
+    try {
+      await AsyncStorage.removeItem('user');
+      set({ user: null, loading: false });
+    } catch (error: any) {
+      set({ error: error.message, loading: false });
+    }
+  }
 }));

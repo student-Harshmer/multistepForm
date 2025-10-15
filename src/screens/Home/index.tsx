@@ -1,10 +1,12 @@
-import { ActivityIndicator, FlatList, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { styles } from './style';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { usePostStore } from '../../zustand/store/postStore';
+import { useAuthStore } from '../../zustand/store/authStore';
 
 const Home = () => {
+  const { logoutUser } = useAuthStore();
   const { loading, posts, fetchPosts, error } = usePostStore();
 
   useEffect(() => {
@@ -17,6 +19,9 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <View style={styles.container}>
+        <TouchableOpacity onPress={logoutUser}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
         <FlatList
           data={posts}
           keyExtractor={(item) => item.id.toString()}
