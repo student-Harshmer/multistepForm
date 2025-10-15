@@ -42,7 +42,6 @@ const Form = () => {
 
   const changeSection = async (isNextPressed: boolean, newPage?: number) => {
     if (isNextPressed) {
-      console.log("Officially separated main branch now");
       const isValid = await methods.trigger();
       if (!isValid) return;
 
