@@ -19,8 +19,8 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={logoutUser}>
-          <Text>Logout</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={logoutUser}>
+          <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
         <FlatList
           data={posts}

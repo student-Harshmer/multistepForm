@@ -117,7 +117,9 @@ const Form = () => {
         <View
           style={[
             styles.inputContainer,
-            isHorizontal ? styles.horizontalInputStyle : styles.verticalInputStyle
+            isHorizontal ?
+              styles.horizontalInputStyle :
+              styles.verticalInputStyle
           ]}
         >
           <FormProvider {...methods}>
