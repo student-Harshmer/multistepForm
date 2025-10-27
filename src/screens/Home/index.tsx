@@ -1,22 +1,15 @@
-import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useCallback, useRef, useState } from 'react'
+/* eslint-disable react/no-unstable-nested-components */
+import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './style';
-
-const ChildButton = React.memo(({ onPress }: { onPress: () => void }) => {
-  console.log('Child rendered');
-  return <Button title="Click Me" onPress={onPress} />;
-});
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const [inp, setInp] = useState<string>('');
   const inputRef = useRef<TextInput>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [count, setCount] = useState(0);
-
-  const handlePress = useCallback(() => {
-    setCount(prev => prev + 1);
-  }, []);
+  const navigation = useNavigation<any>();
 
   const toggleFocus = () => {
     inputRef.current?.isFocused() ?
@@ -24,12 +17,22 @@ const Home = () => {
       inputRef.current?.focus()
   }
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () =>
+        <TouchableOpacity onPress={() => navigation.navigate('PaperUI')}>
+          <Text>PaperUI</Text>
+        </TouchableOpacity>
+    })
+
+  }, [navigation]);
+
   return (
     <SafeAreaView style={styles.safeAreaStyle} edges={['left', 'right']}>
       <View style={styles.container}>
-        <Text>This is the Home screen</Text>
+        <Text style={styles.headerText}>This is the Home screen</Text>
         <TextInput
-          placeholder='Enter something'
+          placeholder='Enter something...'
           ref={inputRef}
           autoCapitalize='none'
           autoCorrect={false}
@@ -62,9 +65,6 @@ const Home = () => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <Text>Count: {count}</Text>
-        <ChildButton onPress={handlePress} />
       </View>
     </SafeAreaView>
   )

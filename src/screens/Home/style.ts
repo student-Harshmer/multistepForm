@@ -8,6 +8,11 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
   },
+  headerText: {
+    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: 500,
+  },
   inputStyle: {
     borderWidth: 1,
     borderRadius: 15,
